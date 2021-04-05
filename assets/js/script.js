@@ -5,10 +5,6 @@ var quizAnswersEl = document.querySelector("#quiz-answers");
 var instructionsEl = document.querySelector("#instructions");
 var highScores = [];
 
-// check element selection
-console.log(quizQuestionsEl);
-console.log(quizAnswersEl);
-
 // array containing the quiz questions and answers
 var codingQuiz = [
     {
@@ -86,10 +82,10 @@ var loadQuiz = function() {
         quizAnswersEl.addEventListener("click", answerCheck);
         
     } else if (numQ === codingQuiz.length) {
-        // show results
-        // stop time
-        console.log("show results");
+        // stop time and show results
         var score = countDownTimer;
+        console.log("show results");
+        submitScore();
     }
 }
 
@@ -148,19 +144,29 @@ var clearCheck = function() {
     clearCheck.remove();
 }
 
-var scoreChart = function() {
+var submitScore = function() {
     quizQuestionsEl.textContent = "All Done!";
+    document.querySelector(".answer-list").remove();
 
-    //your final score is + countDownTimer
-    // create input box for quizzer to enter initials
-    // submit button, class btn
+    // create container to hold elements
+    var resultDisplayEl = document.createElement("form");
+    resultDisplayEl.className = "result-form";
+
+    // create input to gather quiz taker's initials
+    resultDisplayEl.innerHTML = "<p id='result-display'>Your final score is " + countDownTimer + ". <br /><label for='name'>Enter Initials: </label><input type='text' name='name' id='name'class='name-input'/>";
+    quizQuestionsEl.appendChild(resultDisplayEl);
+
+    // create submit button
+    var submitScoreEl = document.createElement("button");
+    submitScoreEl.textContent = "Submit";
+    submitScoreEl.className = "btn-score";
+    document.querySelector("#result-display").appendChild(submitScoreEl);
+
     // when hoover, results p disappear
-
     // after submit, show high scores
     // quizQuestionEl.textContent = "High Scores"
     // form/list 1. initials - score
     // go back button, clear high scores button
-
 }
 
 

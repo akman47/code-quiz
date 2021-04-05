@@ -5,6 +5,7 @@
     --magenta: #FF00FF;
     --black: #000000;
     --gray: #C0C0C0;
+    --lightblue: #87cefa;
 }
 
 * {
@@ -55,7 +56,7 @@ header a {
     font-size: 18px;
 }
 
-.btn {
+.btn, .btn-score {
     padding: 5px 10px;
     border-radius: 7px;
     outline: none;
@@ -110,6 +111,32 @@ header a {
     padding: 10px 30px 10px 5px;
     margin: 10px 15px 10px 15px;
     list-style:
+}
+*/
+.result-form {
+    font: 13px;
+    font-weight: lighter;
+    padding-top: 30px;
+    text-align: left;
+    line-height: 1.2;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+
+.name-input {
+    border-color: var(--gray);
+    border-width: 2px;
+}
+
+.name-input:hover {
+    border-color: var(--lightblue);
+}
+
+.btn-score {
+    display: inline-block;
+    margin-left: 20px;
 }
 
 /* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */

@@ -2,25 +2,14 @@ var countDownTimer = 75;
 var quizGroupEl = document.querySelector("#quiz-group");
 var quizQuestionsEl = document.querySelector("#quiz-questions");
 var quizAnswersEl = document.querySelector("#quiz-answers");
+var instructionsEl = document.querySelector("#instructions");
 var highScores = [];
 
-// question and answer arrays to hold coding quiz questions and answers
-// var questions = new Array();
-// var answers = new Array();
+// check element selection
+console.log(quizQuestionsEl);
+console.log(quizAnswersEl);
 
-// // define question 1
-// questions[0] = new Array();
-// questions[0][0] = "Commonly used data types DO NOT include:";
-// // choices
-// questions[0][1] = "strings";
-// questions[0][2] = "booleans";
-// questions[0][3] = "alerts";
-// questions[0][4] = "numbers";
-
-// // assign answer for question 1
-// answers[0] = "3";
-
-// create array of questions and answers
+// array containing the quiz questions and answers
 var codingQuiz = [
     {
         question: "Commonly used data types DO Not include:" ,
@@ -49,17 +38,68 @@ var codingQuiz = [
     }
 ];
 
+// testing code ----------------------------------
 var startButtonEl = document.querySelector("#start-quiz");
-console.log(startButtonEl);
 
+
+// for (var n = 0; n < codingQuiz[0].choices.length; n++) {
+//     var answersEl = document.createElement("li","button");
+//     answersEl.textContent = codingQuiz[0].choices[n];
+//     answersEl.className = "btn";
+//     quizAnswersEl.appendChild(answersEl);
+// }
+
+
+// starts the quiz by clearing the screen first
+// var startQuiz = function() {
+//     // remove p and start quiz button
+//     instructionsEl.remove();
+//     startButtonEl.remove();
+    
+//     // load questions and answers
+//     loadQuiz();
+// }
+//----------------------------------------
 
 startButtonEl.addEventListener("click", function()
-{
-    console.log("start quiz");
-});
+    {
+        // remove p and start quiz button
+        instructionsEl.remove();
+        startButtonEl.remove();
+    
+        // load questions and answers
+        loadQuiz();
+    }
+);
 
-// when start quiz button is clicked, load quiz
-//quizGroupEl.addEventListener("submit", startQuiz);
+var loadQuiz = function() {
+    // question number tracker
+    var numQ = 0;
+
+    // load questions and answers
+    if  (numQ < codingQuiz.length) {
+        // replace heading with questions
+        quizQuestionsEl.textContent = codingQuiz[numQ].question;
+
+        // create new list element of choices
+        for (var i = 0; i < codingQuiz[numQ].choices.length; i++) {
+            var answersEl = document.createElement("li");
+            answersEl.textContent = codingQuiz[numQ].choices[i];
+            answersEl.className = "btn";
+            quizAnswersEl.appendChild(answersEl);
+        }
+
+        // wait for user to choose answer
+        // once choice is clicked, check if right or wrong
+        // if right, display correct, load next question
+        // if wrong, display wrong, load next question, subtract time from countDownTimer
+        console.log("waiting for answer");
+    }
+}
+
+// when start button is clicked, begin loading quiz
+// startButtonEl.addEventListener("click", startQuiz());
+
 
 // // update the countdown every second
 // var timer = setInterval(function() {

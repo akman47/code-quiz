@@ -46,7 +46,7 @@ header a {
 
 .quiz-title {
     padding-bottom: 10px;
-    width: 100%;
+    width: 90%;
 }
 
 .quiz-group p {
@@ -66,6 +66,28 @@ header a {
 
 .btn:hover {
     background-color: var(--magenta);
+}
+
+/*.answer-list {
+    background-color: var(--purple);
+} */
+
+.answer-list li {
+    text-align: left;
+    padding: 10px 30px 10px 5px;
+    margin: 10px 15px 10px 15px;
+
+}
+
+/*.answer-list li {
+    border-radius: 7px;
+    background-color: var(--purple);
+    color: var(--whitesmoke);
+    font-size: 15px;
+    text-align: left;
+    padding: 10px 30px 10px 5px;
+    margin: 10px 15px 10px 15px;
+    list-style:
 }
 
 /* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */

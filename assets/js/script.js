@@ -49,30 +49,18 @@ var startButtonEl = document.querySelector("#start-quiz");
 //     quizAnswersEl.appendChild(answersEl);
 // }
 
-
-// starts the quiz by clearing the screen first
-// var startQuiz = function() {
-//     // remove p and start quiz button
-//     instructionsEl.remove();
-//     startButtonEl.remove();
-    
-//     // load questions and answers
-//     loadQuiz();
-// }
 //----------------------------------------
 
 
-// when start button is clicked, clear page and load quiz
-startButtonEl.addEventListener("click", function()
-    {
-        // remove instructions and start-quiz button
-        instructionsEl.remove();
-        startButtonEl.remove();
+// starts the quiz by clearing the screen first
+var startQuiz = function(event) {
+    // remove p and start quiz button
+    instructionsEl.remove();
+    startButtonEl.remove();
     
-        // load questions and answers
-        loadQuiz();
-    }
-);
+    // load questions and answers
+    loadQuiz();
+}
 
 // question number tracker
 var numQ = 0;
@@ -94,45 +82,90 @@ var loadQuiz = function() {
         }
 
         // wait for user to choose answer
-        console.log("waiting for answer");
+        console.log("waiting for answer to question " + numQ);
         quizAnswersEl.addEventListener("click", answerCheck);
         
-    } else {
+    } else if (numQ === codingQuiz.length) {
         // show results
+        // stop time
+        console.log("show results");
+        var score = countDownTimer;
     }
 }
 
-var answerCheck = function (event) {
+// checks if selected answer is correct
+var answerCheck = function(event) {
     // find chosen answer based on event.targets answer-id attribute
-    var answerSelected = event.target.getAttribute("answerId");
+    var answerSelected = event.target.getAttribute("answer-id");
     console.log(answerSelected);
+
+    if (numQ > 0) {
+        clearCheck();
+    }
     
     // correct if 
     if (codingQuiz[numQ].answers[answerSelected] === true) {
        //add bottom border to quiz group div and add div to display correct
-        var checkAnswerEl = document.createElement("div");
+        var checkAnswerEl = document.createElement("p");
         checkAnswerEl.textContent = "Correct!";
         checkAnswerEl.className= "results";
+        checkAnswerEl.setAttribute("result-id", numQ);
         quizGroupEl.appendChild(checkAnswerEl);
         numQ++;
         // load next question
+        clearAnswers();
         loadQuiz();
     } else {
-        var checkAnswerEl = document.createElement("div");
+        var checkAnswerEl = document.createElement("p");
         checkAnswerEl.textContent = "Wrong!";
         checkAnswerEl.className = "results";
+        checkAnswerEl.setAttribute("result-id", numQ);
         quizGroupEl.appendChild(checkAnswerEl);
         numQ++;
         // penalize score/time by 10s
         countDownTimer = countDownTimer - 10;
         // load next question
+        clearAnswers();
         loadQuiz();
     }
 }
 
+// clear answer space for next round of answers
+var clearAnswers = function() {
+    // find task list element with answer-id value and remove it
+    if (numQ !== codingQuiz.length) {
+        for (var i = 0; i < codingQuiz[numQ].answers.length; i++) {
+            var answersList = document.querySelector(".btn[answer-id='" + i + "']");
+            answersList.remove();
+            }
+    }
+}
 
-// startButtonEl.addEventListener("click", startQuiz());
-// **debug ** doesn't wait for click, automatically starts quiz
+// clear answer check for next check
+var clearCheck = function() {
+    // clear previous answerCheck
+    var clearCheck = document.querySelector(".results");
+    clearCheck.remove();
+}
+
+var scoreChart = function() {
+    quizQuestionsEl.textContent = "All Done!";
+
+    //your final score is + countDownTimer
+    // create input box for quizzer to enter initials
+    // submit button, class btn
+    // when hoover, results p disappear
+
+    // after submit, show high scores
+    // quizQuestionEl.textContent = "High Scores"
+    // form/list 1. initials - score
+    // go back button, clear high scores button
+
+}
+
+
+// when start button is clicked, clear page and load quiz
+startButtonEl.addEventListener("click", startQuiz);
 
 
 // // update the countdown every second

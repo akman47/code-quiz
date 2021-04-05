@@ -42,6 +42,7 @@ header a {
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    margin: 10px, 30px;
 }
 
 .quiz-title {
@@ -70,6 +71,10 @@ header a {
 
 /*.answer-list {
     background-color: var(--purple);
+    color: var(--whitesmoke);
+    text-align: left;
+    padding: 10px 30px 10px 5px;
+    margin: 10px 15px 10px 15px;
 } */
 
 .answer-list li {
@@ -77,6 +82,18 @@ header a {
     padding: 10px 30px 10px 5px;
     margin: 10px 15px 10px 15px;
 
+}
+
+.answer-list::marker {
+    background-color: var(--purple);
+}
+
+.results {
+    font-size: 15px;
+    font-style: italic;
+    font: var(--gray);
+    border-top: 2px solid var(--gray);
+    padding-top: 5px;
 }
 
 /*.answer-list li {

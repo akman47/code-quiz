@@ -61,9 +61,11 @@ var startButtonEl = document.querySelector("#start-quiz");
 // }
 //----------------------------------------
 
+
+// when start button is clicked, clear page and load quiz
 startButtonEl.addEventListener("click", function()
     {
-        // remove p and start quiz button
+        // remove instructions and start-quiz button
         instructionsEl.remove();
         startButtonEl.remove();
     
@@ -72,12 +74,13 @@ startButtonEl.addEventListener("click", function()
     }
 );
 
-var loadQuiz = function() {
-    // question number tracker
-    var numQ = 0;
+// question number tracker
+var numQ = 0;
 
+// loads questions and answers from the codeQuiz array
+var loadQuiz = function() {
     // load questions and answers
-    if  (numQ < codingQuiz.length) {
+    if (numQ < codingQuiz.length) {
         // replace heading with questions
         quizQuestionsEl.textContent = codingQuiz[numQ].question;
 
@@ -86,19 +89,50 @@ var loadQuiz = function() {
             var answersEl = document.createElement("li");
             answersEl.textContent = codingQuiz[numQ].choices[i];
             answersEl.className = "btn";
+            answersEl.setAttribute("answer-id", i);
             quizAnswersEl.appendChild(answersEl);
         }
 
         // wait for user to choose answer
-        // once choice is clicked, check if right or wrong
-        // if right, display correct, load next question
-        // if wrong, display wrong, load next question, subtract time from countDownTimer
         console.log("waiting for answer");
+        quizAnswersEl.addEventListener("click", answerCheck);
+        
+    } else {
+        // show results
     }
 }
 
-// when start button is clicked, begin loading quiz
+var answerCheck = function (event) {
+    // find chosen answer based on event.targets answer-id attribute
+    var answerSelected = event.target.getAttribute("answerId");
+    console.log(answerSelected);
+    
+    // correct if 
+    if (codingQuiz[numQ].answers[answerSelected] === true) {
+       //add bottom border to quiz group div and add div to display correct
+        var checkAnswerEl = document.createElement("div");
+        checkAnswerEl.textContent = "Correct!";
+        checkAnswerEl.className= "results";
+        quizGroupEl.appendChild(checkAnswerEl);
+        numQ++;
+        // load next question
+        loadQuiz();
+    } else {
+        var checkAnswerEl = document.createElement("div");
+        checkAnswerEl.textContent = "Wrong!";
+        checkAnswerEl.className = "results";
+        quizGroupEl.appendChild(checkAnswerEl);
+        numQ++;
+        // penalize score/time by 10s
+        countDownTimer = countDownTimer - 10;
+        // load next question
+        loadQuiz();
+    }
+}
+
+
 // startButtonEl.addEventListener("click", startQuiz());
+// **debug ** doesn't wait for click, automatically starts quiz
 
 
 // // update the countdown every second

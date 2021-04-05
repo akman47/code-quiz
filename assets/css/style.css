@@ -21,6 +21,7 @@ body {
     text-align: center;  
 }
 
+/* header style */
 header {
     display: flex;
     flex-wrap: wrap;
@@ -38,6 +39,7 @@ header a {
     color: var(--black);
 }
 
+/* main content style */
 .quiz-group {
     display: flex;
     flex-wrap: wrap;
@@ -56,6 +58,7 @@ header a {
     font-size: 18px;
 }
 
+/* submit button, answer button styles */
 .btn, .btn-score {
     padding: 5px 10px;
     border-radius: 7px;
@@ -70,25 +73,16 @@ header a {
     background-color: var(--magenta);
 }
 
-/*.answer-list {
-    background-color: var(--purple);
-    color: var(--whitesmoke);
-    text-align: left;
-    padding: 10px 30px 10px 5px;
-    margin: 10px 15px 10px 15px;
-} */
-
+/* answer list style */
 .answer-list li {
+    list-style-position: inside;
     text-align: left;
     padding: 10px 30px 10px 5px;
     margin: 10px 15px 10px 15px;
 
 }
 
-.answer-list::marker {
-    background-color: var(--purple);
-}
-
+/* show if answer is correct or wrong at bottom of the page */
 .results {
     font: var(--gray);
     font-size: 15px;
@@ -101,18 +95,6 @@ header a {
     text-align: left;
 }
 
-
-/*.answer-list li {
-    border-radius: 7px;
-    background-color: var(--purple);
-    color: var(--whitesmoke);
-    font-size: 15px;
-    text-align: left;
-    padding: 10px 30px 10px 5px;
-    margin: 10px 15px 10px 15px;
-    list-style:
-}
-*/
 .result-form {
     font: 13px;
     font-weight: lighter;
@@ -122,9 +104,9 @@ header a {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-
 }
 
+/* name intial input style */
 .name-input {
     border-color: var(--gray);
     border-width: 2px;
@@ -173,6 +155,6 @@ header a {
     }
 
     .btn {
-        width: 60%;
+        width: 80%;
     }
 }

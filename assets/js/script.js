@@ -1,4 +1,5 @@
 var countDownTimer = 75;
+var timerInterval;
 var quizGroupEl = document.querySelector("#quiz-group");
 var quizQuestionsEl = document.querySelector("#quiz-questions");
 var quizAnswersEl = document.querySelector("#quiz-answers");
@@ -55,6 +56,7 @@ var startQuiz = function(event) {
     
     // load questions and answers
     loadQuiz();
+    timer();
 }
 
 // question number tracker
@@ -238,28 +240,30 @@ var displayHighScore = function() {
 
 // when start button is clicked, clear page and load quiz
 startButtonEl.addEventListener("click", startQuiz);
-startButtonEl.addEventListener("click", startTimer);
+startButtonEl.addEventListener("click", timer);
 
 
 // // update the countdown every second
 // var startTimer = function() {
-//     setInterval(countDown, 1000);
+//     timerInterval = countDownTimer;
+//     //set up interval here, set timerInterval equal to interval returned and us that variable when you clear the interval
 // }
 
-var startTimer = setInterval(function()
-    {
-    if (countDownTimer > 0) {
-        countDownTimer--;
-        // display the result in the element with id timer
-        document.getElementById("timer").innerHTML= "Time " + countDownTimer;
-    }
-    // if the countdown is finished, let user know
-    else if (countDownTimer < 0 && numQ < codingQuiz.length) {
-        alert("Time's Up!");
-        var score = 0;
-        clearInterval(startTimer);
-    }
-    else if (numQ === codingQuiz.length-1) {
-        clearInterval(startTimer);
-    }
-}, 1000);
+var timer = function() {
+    timeInterval = setInterval(function() {
+        if (countDownTimer > 0) {
+            countDownTimer--;
+            // display the result in the element with id timer
+            document.getElementById("timer").innerHTML= "Time " + countDownTimer;
+        }
+        // if the countdown is finished, let user know
+        else if (countDownTimer < 0 && numQ < codingQuiz.length) {
+            alert("Time's Up!");
+            var score = 0;
+            clearInterval(timerInterval);
+        }
+        else if (numQ === codingQuiz.length-1) {
+        clearInterval(timerInterval);
+        }
+    }, 1000);
+}

@@ -47,7 +47,6 @@ var startButtonEl = document.querySelector("#start-quiz");
 
 //----------------------------------------
 
-
 // starts the quiz by clearing the screen first
 var startQuiz = function(event) {
     // remove p and start quiz button
@@ -84,8 +83,9 @@ var loadQuiz = function() {
     } else if (numQ === codingQuiz.length) {
         // stop time and show results
         var score = countDownTimer;
+        clearInterval(startTimer);
         console.log("show results");
-        submitScore();
+        submitScore(score);
     }
 }
 
@@ -144,7 +144,7 @@ var clearCheck = function() {
     clearCheck.remove();
 }
 
-var submitScore = function() {
+var submitScore = function(score) {
     quizQuestionsEl.textContent = "All Done!";
     document.querySelector(".answer-list").remove();
 
@@ -162,30 +162,104 @@ var submitScore = function() {
     submitScoreEl.className = "btn-score";
     document.querySelector("#result-display").appendChild(submitScoreEl);
 
+    var userNameInput = document.querySelector("input[name='name']").value;
+    console.log(userNameInput);
+
+    // if (score < 0) {
+    //     score = 0;
+    // }
+
+    submitScoreEl.addEventListener("click", function(){
+        alert("your score is " + score);
+        alert(userNameInput);
+
+        // highScoresChart(userNameInput, score);
+    });
+
+    // if (userScore > highscore) {
+    // // add to high score list
+    // }
+
     // when hoover, results p disappear
-    // after submit, show high scores
-    // quizQuestionEl.textContent = "High Scores"
-    // form/list 1. initials - score
-    // go back button, clear high scores button
+}
+
+var highScoresChart = function (name, playerScore) {
+    var minScore = 0;
+    var maxScore = 75;
+
+    if (highScores.length === 0){
+        highScores[0] = {place: "1.", initials: name, score: playerScore};
+        console.log(highScores);
+    }
+    // else if (playerScore > highScores[0].score) {
+
+    // }
+
+    // if (score > minScore) {
+    //     // add name and score to highScores[]
+    // }
+
+}
+
+var displayHighScore = function() {
+
+    quizQuestionsEl.textContent = "High Scores";
+    clearCheck();
+    // highScoresChart();
+
+    for (var i = 0; i < highScores.length; i++) {
+        console.log(highScores.place[i] + " " + highScores.name[i] + " - " + highScores.score[i]);
+    }
+
+    // create go back button
+    var goBackButtonEl = document.createElement("button");
+    goBackButtonEl.textContent = "Go back";
+    goBackButtonEl.className = "btn";
+    quizGroupEl.appendChild(goBackButtonEl);
+
+    // create clear button
+    var clearButtonEl = document.createElement("button");
+    clearButtonEl.textContent = "Clear high scores";
+    clearButtonEl.className = "btn";
+    quizGroupEl.appendChild(clearButtonEl);
+
+    // if go back button is clicked, return to start
+    goBackButtonEl.addEventListener("click", function(){
+        window.history.back();
+    });
+
+    // if clear button is clicked, clear highScores array
+    clearButtonEl.addEventListener("click", function (){
+        highScores = [];
+        console.log("click");
+    })
 }
 
 
 // when start button is clicked, clear page and load quiz
 startButtonEl.addEventListener("click", startQuiz);
+startButtonEl.addEventListener("click", startTimer);
 
 
 // // update the countdown every second
-// var timer = setInterval(function() {
+// var startTimer = function() {
+//     setInterval(countDown, 1000);
+// }
 
-//     if (countDownTimer >= 0) {
-//         countDownTimer--;
-//         // display the result in the element with id timer
-//         document.getElementById("timer").innerHTML = countDownTimer;
-//     }
-
-//     // if the countdown is finished, let user know
-//     if (countDownTimer < 0) {
-//         alert("Time's Up!");
-//         clearInterval(timer);
-//     }
-// }, 1000);
+var startTimer = setInterval(function()
+    {
+    if (countDownTimer > 0) {
+        countDownTimer--;
+        // display the result in the element with id timer
+        document.getElementById("timer").innerHTML= "Time " + countDownTimer;
+    }
+    // if the countdown is finished, let user know
+    else if (countDownTimer < 0 && numQ < codingQuiz.length) {
+        alert("Time's Up!");
+        var score = 0;
+        clearInterval(startTimer);
+    }
+    else if (numQ === codingQuiz.length-1) {
+        clearInterval(startTimer);
+    }
+}, 1000);

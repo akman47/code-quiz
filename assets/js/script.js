@@ -73,6 +73,11 @@ var loadQuiz = function() {
     } else if (numQ === codingQuiz.length) {
         // stop time and show results
         var score = countDownTimer;
+
+        if (score < 0) {
+            score = 0;
+        }
+
         clearInterval(timeInterval);
         console.log("show results");
         submitScore(score);
@@ -152,57 +157,78 @@ var submitScore = function(score) {
     submitScoreEl.className = "btn-score";
     document.querySelector("#result-display").appendChild(submitScoreEl);
 
-    var userNameInput = document.querySelector("input[name='name']").value;
-    alert(userNameInput);
-
-    // if (score < 0) {
-    //     score = 0;
-    // }
-
     submitScoreEl.addEventListener("click", function(){
-        alert("your score is " + score);
-        alert(userNameInput);
-
-        // highScoresChart(userNameInput, score);
+        var userNameInput = document.querySelector("input[name='name']").value;
+        highScoresChart(userNameInput, score);
     });
 }
 
+// save score to local storage
+var saveScores = function() {
+    debugger;
+    localStorage.setItem('scoreChart', JSON.stringify(highScores));
+}
+
+// gets scores from local storage
+var loadScores = function() {
+    var savedScores = localStorage.getItem("scoreChart");
+
+    // checks if score is null and if so, sets score back to empty array
+    if (!savedScores) {
+        return false;
+    }
+
+    // change score data from string format into array of objects
+    savedScores = JSON.parse(savedScores);
+    highScores = savedScores;
+}
+
 var highScoresChart = function (name, score) {
-    var updatedScoreChart = [];
+    scoreObj = {name: name,
+                playerScore: score
+                };
+
+    var updatedScoreChart = scoreObj;
+    
     // position in array
-    i = 0;
+    var i = 0;
+
+   if (highScores.length === 0 || highScores.length === null) {
+        highScores = [{ name: "", playerScore: 0}];
+        console.log(highScores[i]);
+   }
     
     // update new Score Array
     while (score < highScores[i].playerScore) {
         updatedScoreChart[i] = highScores[i];
         i++;
+        console.log(updatedScoreChart);
     }
 
-    updatedScoreChart [i] = {name, score};
+    updatedScoreChart[i] = scoreObj;
     i++; 
 
     while (i < highScores.length) {
         updatedScoreChart[i] = highScores[i-1];
     }
 
-    var chartEl = document.createElement("ol");
-        quizAnswersEl.appendChild(chartEl)
-    for (n=0; n < updatedScoreChart.length; n++){
-        var scoreChartEl = document.createElement("li");
-            scoreChartEl.textContent = updatedScoreChart[n].name + " --- " + updatedScoreChart[n].playerScore;
-            scoreChartEl.className = "score-list";
-            chartEl.appendChild(scoreChartEl);
-    }
+    highScores = updatedScoreChart;
+    console.log(highScores);
+    saveScores();
+    displayhighScore();
 }
 
 var displayHighScore = function() {
-
     quizQuestionsEl.textContent = "High Scores";
     clearCheck();
-    // highScoresChart();
 
-    for (var i = 0; i < highScores.length; i++) {
-        console.log(highScores.place[i] + " " + highScores.name[i] + " - " + highScores.score[i]);
+    var chartEl = document.createElement("ol");
+        quizAnswersEl.appendChild(chartEl)
+    for ( i = 0; i < highSCores.length; i++){
+        var scoreChartEl = document.createElement("li");
+            scoreChartEl.textContent = highScores[i].name + " --- " + highScores[n].playerScore;
+            scoreChartEl.className = "score-list";
+            chartEl.appendChild(scoreChartEl);
     }
 
     // create go back button
@@ -225,6 +251,7 @@ var displayHighScore = function() {
     // if clear button is clicked, clear highScores array
     clearButtonEl.addEventListener("click", function (){
         highScores = [];
+        localStorage.clear();
     })
 }
 

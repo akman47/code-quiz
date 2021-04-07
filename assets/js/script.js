@@ -184,38 +184,106 @@ var loadScores = function() {
 }
 
 var highScoresChart = function (name, score) {
+    loadScores();
+    console.log("high", highScores);
+
     scoreObj = {name: name,
                 playerScore: score
-                };
+            };
 
-    var updatedScoreChart = scoreObj;
+    var updatedScoreChart = [];
     
-    // position in array
-    var i = 0;
+    // position in updatedScoreChart array
+    var n = 0;
 
    if (highScores.length === 0 || highScores.length === null) {
-        highScores = [{ name: "", playerScore: 0}];
-        console.log(highScores[i]);
-   }
+        // highScores = [{ name: "", playerScore: 0}];
+        highScores[0] = scoreObj;
+        console.log("highScores", highScores[i]);
+        saveScores();
+        //displayHighScore();
+    } else {
+       debugger;
+        // update new Score Array
     
-    // update new Score Array
-    while (score < highScores[i].playerScore) {
-        updatedScoreChart[i] = highScores[i];
-        i++;
-        console.log(updatedScoreChart);
-    }
+        // if score is highest
+         if (score > highScores[0].playerScore) {
+            // place score at top of chart
+            updatedScoreChart[0] = scoreObj;
 
-    updatedScoreChart[i] = scoreObj;
-    i++; 
+            // fill in chart with remaining scores
+            for (i=0; i < highScores.length; i++) {
+                updatedScoreChart.push(highScores[i]);
+                console.log("updated", updatedScoreChart);
+            }
+            // if score is lowest
+         } else if (score < highScores[highScores.length-1].playerScore) {
+            // fill in chart with previous high scores
+            for (i=0; i < highScores.length; i++) {
+                updatedScoreChart.push(highScores[i]);
+                console.log("updated", updatedScoreChart);
+            }
+            // add current score to bottom of chart
+            updatedScoreChart[highScores.length] = scoreObj;
+            console.log("highScores", highScores);
+            console.log("updated", updatedScoreChart);
+       
+            // if score is in the middle
+         } else {
+             // load higher scores first
+                while (score < highScores[n].playerScore) {
+                    updatedScoreChart.push(highScores[n]);
+                    n++;
+                    console.log("highScores", highScores);
+                    console.log("updated", updatedScoreChart);
+                }
+                // add score
+                updatedScoreChart[n] = scoreObj;
+                console.log("updated", updatedScoreChart);
+            
 
-    while (i < highScores.length) {
-        updatedScoreChart[i] = highScores[i-1];
-    }
+                // load remaining high scores
+                for (i = n; i < highScores.length; i++) {
+                    n++;
+                    updatedScoreChart[n].push(highScores[i]);
+                    console.log("updated", updatedScoreChart);
+                }
+            }
+
+        }
+
+        // for (var i = 0; i < highScores.length; i++) {
+        //     // score is highest
+        //     if (score > highScores[i].playerScore && i === 0) {
+        //         updatedScoreChart[i] = scoreObj;
+        //         updatedScoreChart.push(highScores[i]);
+        //         console.log("highScores", highScores);
+        //         console.log("updated", updatedScoreChart);
+        //     }
+        //     else if (score < highScores[i].playerScore) {
+        //         updatedScoreChart.push(highScores[i]);
+        //         console.log("updated", updatedScoreChart);
+        //     }
+        //     else if (score >= highScores[i] && highScores.length === updatedScoreChart.length) {
+        //         updatedScoreChart[i] = scoreObj;
+        //         updatedScoreChart.push(highScores[i]);
+        //     }
+        // }
+
+        console.log("highScores", highScores);
+        console.log("updated", updatedScoreChart);
+
+
+        // for (var n = i; n < highScores.length + 1; n++) {
+        //     updatedScoreChart.push(highScores[i-1]);
+        //     console.log(updatedScoreChart);
+        // }
+
 
     highScores = updatedScoreChart;
-    console.log(highScores);
+    console.log("high", highScores);
     saveScores();
-    displayhighScore();
+    //displayhighScore();
 }
 
 var displayHighScore = function() {
@@ -224,7 +292,7 @@ var displayHighScore = function() {
 
     var chartEl = document.createElement("ol");
         quizAnswersEl.appendChild(chartEl)
-    for ( i = 0; i < highSCores.length; i++){
+    for ( i = 0; i < highScores.length; i++){
         var scoreChartEl = document.createElement("li");
             scoreChartEl.textContent = highScores[i].name + " --- " + highScores[n].playerScore;
             scoreChartEl.className = "score-list";
@@ -249,10 +317,10 @@ var displayHighScore = function() {
     });
 
     // if clear button is clicked, clear highScores array
-    clearButtonEl.addEventListener("click", function (){
-        highScores = [];
-        localStorage.clear();
-    })
+    // clearButtonEl.addEventListener("click", function (){
+    //     highScores = [];
+    //     localStorage.clear();
+    // })
 }
 
 // when start button is clicked, clear page and load quiz

@@ -225,7 +225,6 @@ var highScoresChart = function (name, score) {
             }
             // add current score to bottom of chart
             updatedScoreChart[highScores.length] = scoreObj;
-            console.log("highScores", highScores);
             console.log("updated", updatedScoreChart);
        
             // if score is in the middle
@@ -234,18 +233,15 @@ var highScoresChart = function (name, score) {
                 while (score < highScores[n].playerScore) {
                     updatedScoreChart.push(highScores[n]);
                     n++;
-                    console.log("highScores", highScores);
                     console.log("updated", updatedScoreChart);
                 }
                 // add score
                 updatedScoreChart[n] = scoreObj;
                 console.log("updated", updatedScoreChart);
-            
 
                 // load remaining high scores
                 for (i = n; i < highScores.length; i++) {
-                    n++;
-                    updatedScoreChart[n].push(highScores[i]);
+                    updatedScoreChart.push(highScores[i]);
                     console.log("updated", updatedScoreChart);
                 }
             }
@@ -270,15 +266,7 @@ var highScoresChart = function (name, score) {
         //     }
         // }
 
-        console.log("highScores", highScores);
         console.log("updated", updatedScoreChart);
-
-
-        // for (var n = i; n < highScores.length + 1; n++) {
-        //     updatedScoreChart.push(highScores[i-1]);
-        //     console.log(updatedScoreChart);
-        // }
-
 
     highScores = updatedScoreChart;
     console.log("high", highScores);

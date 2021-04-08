@@ -144,7 +144,10 @@ var clearAnswers = function() {
 var clearCheck = function() {
     // clear previous answerCheck
     var clearCheck = document.querySelector(".results");
-    clearCheck.remove();
+
+    if (clearCheck !== null) {
+        clearCheck.remove();
+    }
 }
 
 var submitScore = function(score) {
@@ -266,7 +269,11 @@ var highScoresChart = function (name, score) {
 
 var displayHighScore = function() {
     quizQuestionsEl.textContent = "";
-    clearCheck();
+
+    var clearCheck = document.querySelector(".results");
+    if (clearCheck !== null) {
+        clearCheck.remove();
+    }
 
     var viewHighScore = document.createElement("div");
     viewHighScore.setAttribute("id", "#viewHighScore");
@@ -325,12 +332,10 @@ startButtonEl.addEventListener("click", timer);
 
 // when view high scores link is clicked, load high scores page
 highScoresLinkEl.addEventListener("click",function() {
-    dislayHighScores();
-
-    // var clearCheck = document.querySelector(".results");
-    // if (clearCheck !== null) {
-    //     clearCheck.remove();
-    // }
+    loadScores();
+    displayHighScore();
+    instructionsEl.remove();
+    startButtonEl.remove();
 });
 
 

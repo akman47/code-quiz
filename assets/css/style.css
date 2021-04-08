@@ -42,7 +42,7 @@ header a {
 /* main content style */
 .quiz-group {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction:column;
     justify-content: center;
     align-items: center;
     margin: 10px, 30px;
@@ -59,7 +59,7 @@ header a {
 }
 
 /* submit button, answer button styles */
-.btn, .btn-score {
+.btn, .btn-score, .btn-list {
     padding: 5px 10px;
     border-radius: 7px;
     outline: none;
@@ -120,6 +120,26 @@ header a {
     display: inline-block;
     margin-left: 20px;
 }
+
+/* score chart style */
+.score-list-order {
+    background-color: plum;
+    list-style-position: inside;
+    width: 40%;
+    text-align: left;
+}
+
+.btn-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.btn-list {
+    margin: 7px;
+}
+
+
 
 /* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */
 @media screen and (max-width: 980px) {

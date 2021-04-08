@@ -155,9 +155,11 @@ var submitScore = function(score) {
     var submitScoreEl = document.createElement("button");
     submitScoreEl.textContent = "Submit";
     submitScoreEl.className = "btn-score";
+    submitScoreEl.type = "button";
     document.querySelector("#result-display").appendChild(submitScoreEl);
 
-    submitScoreEl.addEventListener("click", function(){
+    submitScoreEl.addEventListener("click", function(event){
+        event.preventDefault();
         var userNameInput = document.querySelector("input[name='name']").value;
         highScoresChart(userNameInput, score);
     });
@@ -165,7 +167,6 @@ var submitScore = function(score) {
 
 // save score to local storage
 var saveScores = function() {
-    debugger;
     localStorage.setItem('scoreChart', JSON.stringify(highScores));
 }
 
@@ -192,18 +193,16 @@ var highScoresChart = function (name, score) {
             };
 
     var updatedScoreChart = [];
-    
+
     // position in updatedScoreChart array
     var n = 0;
 
    if (highScores.length === 0 || highScores.length === null) {
-        // highScores = [{ name: "", playerScore: 0}];
         highScores[0] = scoreObj;
-        console.log("highScores", highScores[i]);
+        console.log("highScores", highScores);
         saveScores();
-        //displayHighScore();
+        displayHighScore();
     } else {
-       debugger;
         // update new Score Array
     
         // if score is highest
@@ -246,32 +245,10 @@ var highScoresChart = function (name, score) {
                 }
             }
 
-        }
-
-        // for (var i = 0; i < highScores.length; i++) {
-        //     // score is highest
-        //     if (score > highScores[i].playerScore && i === 0) {
-        //         updatedScoreChart[i] = scoreObj;
-        //         updatedScoreChart.push(highScores[i]);
-        //         console.log("highScores", highScores);
-        //         console.log("updated", updatedScoreChart);
-        //     }
-        //     else if (score < highScores[i].playerScore) {
-        //         updatedScoreChart.push(highScores[i]);
-        //         console.log("updated", updatedScoreChart);
-        //     }
-        //     else if (score >= highScores[i] && highScores.length === updatedScoreChart.length) {
-        //         updatedScoreChart[i] = scoreObj;
-        //         updatedScoreChart.push(highScores[i]);
-        //     }
-        // }
-
-        console.log("updated", updatedScoreChart);
-
-    highScores = updatedScoreChart;
-    console.log("high", highScores);
-    saveScores();
-    //displayhighScore();
+        highScores = updatedScoreChart;
+        saveScores();
+     displayHighScore();
+    }
 }
 
 var displayHighScore = function() {
@@ -279,25 +256,32 @@ var displayHighScore = function() {
     clearCheck();
 
     var chartEl = document.createElement("ol");
-        quizAnswersEl.appendChild(chartEl)
+    chartEl.className = "score-list-order";
+    quizGroupEl.appendChild(chartEl);
+
     for ( i = 0; i < highScores.length; i++){
         var scoreChartEl = document.createElement("li");
-            scoreChartEl.textContent = highScores[i].name + " --- " + highScores[n].playerScore;
-            scoreChartEl.className = "score-list";
-            chartEl.appendChild(scoreChartEl);
+        scoreChartEl.textContent = highScores[i].name + " --- " + highScores[i].playerScore;
+        scoreChartEl.className = "score-list";
+        chartEl.appendChild(scoreChartEl);
     }
+
+    // create container to hold buttons
+    var buttonContainerEl = document.createElement("div");
+    buttonContainerEl.className = "btn-container";
+    quizGroupEl.appendChild(buttonContainerEl);
 
     // create go back button
     var goBackButtonEl = document.createElement("button");
     goBackButtonEl.textContent = "Go back";
-    goBackButtonEl.className = "btn";
-    quizGroupEl.appendChild(goBackButtonEl);
+    goBackButtonEl.className = "btn-list";
+    buttonContainerEl.appendChild(goBackButtonEl);
 
     // create clear button
     var clearButtonEl = document.createElement("button");
     clearButtonEl.textContent = "Clear high scores";
-    clearButtonEl.className = "btn";
-    quizGroupEl.appendChild(clearButtonEl);
+    clearButtonEl.className = "btn-list";
+    buttonContainerEl.appendChild(clearButtonEl);
 
     // if go back button is clicked, return to start
     goBackButtonEl.addEventListener("click", function(){
@@ -305,10 +289,10 @@ var displayHighScore = function() {
     });
 
     // if clear button is clicked, clear highScores array
-    // clearButtonEl.addEventListener("click", function (){
-    //     highScores = [];
-    //     localStorage.clear();
-    // })
+    clearButtonEl.addEventListener("click", function (){
+        highScores = [];
+        localStorage.removeItem("scoreChart");
+    })
 }
 
 // when start button is clicked, clear page and load quiz

@@ -43,18 +43,27 @@ header a {
 .quiz-group {
     display: flex;
     flex-direction:column;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin: 10px, 30px;
+    width: 100%;
+    padding: 5px 90px;
 }
 
 .quiz-title {
     padding-bottom: 10px;
+    width: 100%;
+    text-align: center;
+}
+
+.questions {
+    text-align: left;
+    font-size: 25px;
     width: 70%;
 }
 
-.quiz-group p {
-    padding: 10px 250px 30px 250px;
+.instructions {
+    padding: 10px 60px 30px 60px;
     font-size: 18px;
 }
 
@@ -79,8 +88,16 @@ header a {
     text-align: left;
     padding: 10px 30px 10px 5px;
     margin: 10px 15px 10px 15px;
-
+    width: 100%;
 }
+
+.answer-list ul {
+    margin: 0;
+}
+
+/*.answer-list ol {
+    margin: -20px;
+} */
 
 /* show if answer is correct or wrong at bottom of the page */
 .results {
@@ -90,8 +107,9 @@ header a {
     border-top: 2px solid var(--gray);
     padding-top: 15px;
     padding-left: 0;
-    margin: 20px 350px;
+    margin: 20px 0px;
     text-align: left;
+    width: 60%;
 }
 
 .result-form {
@@ -128,6 +146,8 @@ header a {
     text-align: left;
     font-size: 20px;
     display: inline-block;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 #viewHighScore {
@@ -135,7 +155,12 @@ header a {
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: space-between;
-    font-size: 25px;
+    align-items: center;
+}
+
+#viewHighScore h1 {
+    padding: 10px;
+    text-align: center;
 }
 
 .btn-container {
@@ -158,13 +183,16 @@ header a {
 
 /* MEDIA QUERY FOR TABLETS AND SMALLER */
 @media screen and (max-width: 768px) {
+    .quiz-title {
+        width: 100%;
+    }
     .quiz-group p {
         width: 100%;
         padding: 10px 60px 30px 60px;
     }
 
     .results {
-        width: 100%;
+        width: 80%;
     }
 
 }
@@ -176,6 +204,7 @@ header a {
     }
     .quiz-title {
         padding-bottom: 20px;
+        font-size: 18px;
     }
 
     .quiz-group p {

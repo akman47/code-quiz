@@ -55,7 +55,13 @@ var loadQuiz = function() {
     // load questions and answers
     if (numQ < codingQuiz.length) {
         // replace heading with questions
-        quizQuestionsEl.textContent = codingQuiz[numQ].question;
+        quizQuestionsEl.textContent = "";
+        var questionsEl = document.createElement("h2");
+            questionsEl.textContent = codingQuiz[numQ].question;
+            questionsEl.className = "questions";
+            quizQuestionsEl.appendChild(questionsEl);
+
+
         //quizQuestionsEl.setAttribute("style", "text-align: left");
 
         // create new list element of choices
@@ -142,6 +148,7 @@ var clearCheck = function() {
 
 var submitScore = function(score) {
     quizQuestionsEl.textContent = "All Done!";
+    quizQuestionsEl.setAttribute("style", "text-align: left");
     document.querySelector(".answer-list").remove();
 
     // create container to hold elements
@@ -263,6 +270,7 @@ var displayHighScore = function() {
     var titleHighScore = document.createElement("h1");
     titleHighScore.textContent = "High Scores";
     titleHighScore.setAttribute("style", "text-align: center");
+    titleHighScore.setAttribute("style", "font-size: 30px");
     viewHighScore.appendChild(titleHighScore);
 
     var chartEl = document.createElement("ol");
@@ -295,7 +303,7 @@ var displayHighScore = function() {
 
     // if go back button is clicked, return to start
     goBackButtonEl.addEventListener("click", function(){
-        window.history.back();
+        window.reload();
     });
 
     // if clear button is clicked, clear highScores array

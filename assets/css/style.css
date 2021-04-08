@@ -44,7 +44,7 @@ header a {
     display: flex;
     flex-direction:column;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     margin: 10px, 30px;
     width: 100%;
     padding: 5px 90px;
@@ -57,9 +57,10 @@ header a {
 }
 
 .questions {
-    text-align: left;
+    text-align: center;
     font-size: 25px;
-    width: 70%;
+    width: 50%;
+    margin: 5px auto;
 }
 
 .instructions {
@@ -95,10 +96,6 @@ header a {
     margin: 0;
 }
 
-/*.answer-list ol {
-    margin: -20px;
-} */
-
 /* show if answer is correct or wrong at bottom of the page */
 .results {
     font: var(--gray);
@@ -109,7 +106,11 @@ header a {
     padding-left: 0;
     margin: 20px 0px;
     text-align: left;
-    width: 60%;
+    width: 50%;
+}
+
+#result-display {
+    font-size: 20px;
 }
 
 .result-form {
@@ -120,7 +121,7 @@ header a {
     line-height: 1.2;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 /* name intial input style */
@@ -177,7 +178,9 @@ header a {
 
 /* MEDIA QUERY FOR SMALLER DESKTOP SCREENS AND SMALLER */
 @media screen and (max-width: 980px) {
-
+    .questions {
+        width: 70%;
+    }
 
 }
 
@@ -186,15 +189,38 @@ header a {
     .quiz-title {
         width: 100%;
     }
-    .quiz-group p {
-        width: 100%;
-        padding: 10px 60px 30px 60px;
+
+    .instructions {
+        padding: 0;
+        margin: 15px auto;
+        font-size: 18px;
+        width: 70%;
+        line-height: 1.6;
     }
 
     .results {
         width: 80%;
     }
 
+    .btn {
+        width: 50%;
+    }
+
+    #result-display {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        line-height: 1.4;
+    }
+
+    .name-input {
+        height: 30px;
+    }
+    
+    .btn-score {
+        margin-top: 15px;
+        width: 70%;
+    }
 }
 
 /* MEDIA QUERY FOR MOBILE PHONES AND SMALLER */
@@ -204,12 +230,13 @@ header a {
     }
     .quiz-title {
         padding-bottom: 20px;
-        font-size: 18px;
     }
-
-    .quiz-group p {
-        flex: 0 100%;
-        padding-bottom: 35px;
+    .instructions {
+        padding: 0;
+        margin-bottom: 20px;
+        font-size: 18px;
+        line-height: 1.8;
+        width: 80%;
     }
 
     .btn {

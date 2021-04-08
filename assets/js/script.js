@@ -148,7 +148,7 @@ var clearCheck = function() {
 
 var submitScore = function(score) {
     quizQuestionsEl.textContent = "All Done!";
-    quizQuestionsEl.setAttribute("style", "text-align: left");
+    quizQuestionsEl.setAttribute("style", "text-align: center");
     document.querySelector(".answer-list").remove();
 
     // create container to hold elements
@@ -169,7 +169,11 @@ var submitScore = function(score) {
     submitScoreEl.addEventListener("click", function(event){
         event.preventDefault();
         var userNameInput = document.querySelector("input[name='name']").value;
+        if (userNameInput === null || userNameInput === "") {
+            alert("Enter your initials to save your score!");
+        } else {
         highScoresChart(userNameInput, score);
+        }
     });
 }
 
@@ -303,7 +307,7 @@ var displayHighScore = function() {
 
     // if go back button is clicked, return to start
     goBackButtonEl.addEventListener("click", function(){
-        window.reload();
+        window.history.go();
     });
 
     // if clear button is clicked, clear highScores array

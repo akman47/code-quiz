@@ -50,7 +50,7 @@ header a {
 
 .quiz-title {
     padding-bottom: 10px;
-    width: 90%;
+    width: 70%;
 }
 
 .quiz-group p {
@@ -90,7 +90,6 @@ header a {
     border-top: 2px solid var(--gray);
     padding-top: 15px;
     padding-left: 0;
-    width: 100%;
     margin: 20px 350px;
     text-align: left;
 }
@@ -127,12 +126,22 @@ header a {
     list-style-position: inside;
     width: 40%;
     text-align: left;
+    font-size: 20px;
+    display: inline-block;
+}
+
+#viewHighScore {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 25px;
 }
 
 .btn-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .btn-list {

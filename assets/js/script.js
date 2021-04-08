@@ -56,6 +56,7 @@ var loadQuiz = function() {
     if (numQ < codingQuiz.length) {
         // replace heading with questions
         quizQuestionsEl.textContent = codingQuiz[numQ].question;
+        //quizQuestionsEl.setAttribute("style", "text-align: left");
 
         // create new list element of choices
         for (var i = 0; i < codingQuiz[numQ].choices.length; i++) {
@@ -252,12 +253,21 @@ var highScoresChart = function (name, score) {
 }
 
 var displayHighScore = function() {
-    quizQuestionsEl.textContent = "High Scores";
+    quizQuestionsEl.textContent = "";
     clearCheck();
+
+    var viewHighScore = document.createElement("div");
+    viewHighScore.setAttribute("id", "#viewHighScore");
+    quizQuestionsEl.appendChild(viewHighScore);
+
+    var titleHighScore = document.createElement("h1");
+    titleHighScore.textContent = "High Scores";
+    titleHighScore.setAttribute("style", "text-align: center");
+    viewHighScore.appendChild(titleHighScore);
 
     var chartEl = document.createElement("ol");
     chartEl.className = "score-list-order";
-    quizGroupEl.appendChild(chartEl);
+    viewHighScore.appendChild(chartEl);
 
     for ( i = 0; i < highScores.length; i++){
         var scoreChartEl = document.createElement("li");
@@ -269,7 +279,7 @@ var displayHighScore = function() {
     // create container to hold buttons
     var buttonContainerEl = document.createElement("div");
     buttonContainerEl.className = "btn-container";
-    quizGroupEl.appendChild(buttonContainerEl);
+    viewHighScore.appendChild(buttonContainerEl);
 
     // create go back button
     var goBackButtonEl = document.createElement("button");
@@ -292,6 +302,7 @@ var displayHighScore = function() {
     clearButtonEl.addEventListener("click", function (){
         highScores = [];
         localStorage.removeItem("scoreChart");
+        chartEl.remove();
     })
 }
 

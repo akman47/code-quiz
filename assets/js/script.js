@@ -1,5 +1,6 @@
 var countDownTimer = 75;
 var timerInterval;
+var highScoresLinkEl = document.querySelector(".highScoreLink");
 var startButtonEl = document.querySelector("#start-quiz");
 var quizGroupEl = document.querySelector("#quiz-group");
 var quizQuestionsEl = document.querySelector("#quiz-questions");
@@ -321,6 +322,17 @@ var displayHighScore = function() {
 // when start button is clicked, clear page and load quiz
 startButtonEl.addEventListener("click", startQuiz);
 startButtonEl.addEventListener("click", timer);
+
+// when view high scores link is clicked, load high scores page
+highScoresLinkEl.addEventListener("click",function() {
+    dislayHighScores();
+
+    // var clearCheck = document.querySelector(".results");
+    // if (clearCheck !== null) {
+    //     clearCheck.remove();
+    // }
+});
+
 
 var timer = function() {
     timeInterval = setInterval(function() {

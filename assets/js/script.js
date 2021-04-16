@@ -54,7 +54,7 @@ var numQ = 0;
 // loads questions and answers from the codeQuiz array
 var loadQuiz = function() {
     // load questions and answers
-    if (numQ < codingQuiz.length) {
+    if (numQ < codingQuiz.length && countDownTimer >= 0) {
         // replace heading with questions
         quizQuestionsEl.textContent = "";
         var questionsEl = document.createElement("h2");
@@ -123,6 +123,7 @@ var answerCheck = function(event) {
         numQ++;
         // penalize score/time by 10s
         countDownTimer = countDownTimer - 10;
+
         // load next question
         clearAnswers();
         loadQuiz();
@@ -160,7 +161,7 @@ var submitScore = function(score) {
     resultDisplayEl.className = "result-form";
 
     // create input to gather quiz taker's initials
-    resultDisplayEl.innerHTML = "<p id='result-display'>Your final score is " + countDownTimer + ". <br /><label for='name'>Enter Initials: </label><input type='text' name='name' id='name'class='name-input'/>";
+    resultDisplayEl.innerHTML = "<p id='result-display'>Your final score is " + score + ". <br /><label for='name'>Enter Initials: </label><input type='text' name='name' id='name'class='name-input'/>";
     quizQuestionsEl.appendChild(resultDisplayEl);
 
     // create submit button
@@ -347,9 +348,10 @@ var timer = function() {
             document.getElementById("timer").innerHTML= "Time " + countDownTimer;
         }
         // if the countdown is finished, let user know
-        else if (countDownTimer < 0 && numQ < codingQuiz.length) {
+        else if (countDownTimer <= 0 && numQ < codingQuiz.length) {
             alert("Time's Up!");
             var score = 0;
+            submitScore(score);
             clearInterval(timeInterval);
         }
         else if (numQ === codingQuiz.length-1) {
